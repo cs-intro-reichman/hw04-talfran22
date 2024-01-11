@@ -1,6 +1,6 @@
 public class ArrayOps {
     public static void main(String[] args) {
-        int[] array = {2, 3, 1, 4, 0, 4, 4, 4, 4};
+        int[] array = {0,1,2,3,4,6};
         int[] array2 = {0,1,2,3,4};
         System.out.println((findMissingInt(array)));
         System.out.println(secondMaxValue(array));
@@ -73,7 +73,7 @@ public class ArrayOps {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
     public static void println(int[] arr) {
