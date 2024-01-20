@@ -11,7 +11,8 @@ public class ArrayOps {
     public static int findMissingInt (int [] array) {
         for(int i = 0 ; i < array.length ; i++)
         {
-            if(isInArray(array, i) == false)
+            // #feedback: it's not common to compare boolean variables - just use it value as needed
+            if(!isInArray(array, i))
                 return i;
 
         }
@@ -19,37 +20,46 @@ public class ArrayOps {
     }
 
     public static int secondMaxValue(int [] array) {
-        int[] nobig = new int[array.length - 1];
+        // #feedback: use camelCase for variable names
+        int[] noBig = new int[array.length - 1];
         int max = array[0];
         int j = 0;
         for(int i = 1; i < array.length; i++){
+            // #feedback: simply use if-else
             if(array[i] <= max){
-                nobig[j] = array[i];
-                j++;
-            }
-            if(array[i] > max){
-                nobig[j] = max;
+                noBig[j] = array[i];
+            } else {
+                noBig[j] = max;
                 max = array[i];
-                j++;
             }
+            // #feedback: j++ happen for both cases
+            j++;
         }
-        max = nobig[0];
-        for(int k = 1; k < nobig.length ; k++){
-            if(nobig[k] > max)
-                max = nobig[k];
+        max = noBig[0];
+        // #feedback: you could use here i again
+        for(int k = 1; k < noBig.length ; k++){
+            if(noBig[k] > max)
+                max = noBig[k];
         }
         return max;
     }
 
     public static boolean containsTheSameElements(int [] array1,int [] array2) {
         for(int i = 0; i < array1.length ; i++){
-            if(isInArray(array2, array1[i]) == false)
+            // #feedback: it's not common to compare boolean variables - just use it value as needed
+            if(!isInArray(array2, array1[i]))
                 return false;
         }
         return true;
     }
 
     public static boolean isSorted(int [] array) {
+        /*
+            #feedback:
+            Assume array = {5, 5, 3, 2, 7}
+            Your code will return true regardless what happen after the second index.
+            You didn't cover cases when first values are equal where it should be expected in both increasing\decreasing arrays.
+        */
         if(array[0] > array[1]){
             for(int i = 1; i < array.length - 1; i++){
                 if(array[i] < array[i + 1]){
