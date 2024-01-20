@@ -30,44 +30,46 @@ public class StringOps {
     public static String capVowelsLowRest (String string) {
         String fix = "";
         for(int i = 0; i < string.length() ; i ++){
-            if(string.charAt(i) == 'a' || string.charAt(i) == 'e' || string.charAt(i) == 'o' || string.charAt(i) == 'u' || string.charAt(i) == 'i')
-                fix += (char)(string.charAt(i) - 32) ;
-            else{
-                if(string.charAt(i) == ' ')
-                    fix += ' ';
-                else{
-                if(string.charAt(i) == 'A' || string.charAt(i) == 'E' || string.charAt(i) == 'O' || string.charAt(i) == 'U' || string.charAt(i) == 'I')
-                  fix += string.charAt(i);
-                else{
-                    if(string.charAt(i) > 64 && string.charAt(i) < 91)
-                       fix += (char)(string.charAt(i) + 32);
-                    else
-                       fix += string.charAt(i);
-                    }
-                }
+            // #feedback: why do you need to call charAt method such many times? store it in a variable instead!
+            char currentChar = string.charAt(i);
+            // #feedback: always use {} to scope the body of the condition - even when there is only one line of code
+            if(currentChar == 'a' || currentChar == 'e' || currentChar == 'o' || currentChar == 'u' || currentChar == 'i') {
+                fix += (char)(currentChar - 32) ;
+            // #feedback: try avoid nest another conditions within else, usualy it can be merged
+            } else if(currentChar == 'A' || currentChar == 'E' || currentChar == 'O' || currentChar == 'U' || currentChar == 'I') {
+                fix += currentChar;
+            } else if(currentChar > 64 && scurrentChar < 91) {
+                fix += (char)(currentChar + 32);
+            } else {
+            // #feedback: space case covered here :)
+                fix += currentChar;
             }
         }
+        
         return fix;
     }
 
     public static String camelCase (String string) {
         String fix = "";
         for(int i = 0 ; i < string.length() ; i ++){
-            if(string.charAt(i) != ' '){
-                if(string.charAt(i) > 64 && string.charAt(i) < 91)
-                    fix += (char)(string.charAt(i) + 32);
-                else{
-                    fix += string.charAt(i);
+            // #feedback: avoid multiple calculation of same value - store it in variable
+            char currentChar = string.charAt(i);
+            if(currentChar != ' '){
+                if(currentChar > 64 && currentChar < 91) {
+                    fix += (char)(currentChar + 32);
+                } else {
+                    fix += currentChar;
                 }
             }
             else{
-                if(string.charAt(i+1) != ' ' && fix != ""){
-                    if((int)(string.charAt(i+1)) > 96 && (int)(string.charAt(i+1)) < 122)
-                        fix += (char)(string.charAt(i+1) - 32);
-                    else{
-                        fix += string.charAt(i+1);
+                char nextChar = string.charAt(i+1);
+                if(nextChar != ' ' && fix != ""){
+                    if((int)(nextChar) > 96 && (int)(nextChar) < 122) {
+                        fix += (char)(nextChar - 32);
+                    } else {
+                        fix += nextChar;
                     }
-                    
+                    // #feedback: it's not common to change i beside the loop definition - maybe you could create a flag here to guide next itteration instead...
                     i++;
                 }
             }
@@ -76,12 +78,13 @@ public class StringOps {
     }
 
     public static int[] allIndexOf (String string, char chr) {
-        int sum = 0;
+        // #feedback: `count` can be better name here
+        int count = 0;
         for(int i = 0 ; i < string.length() ; i++){
             if(chr == string.charAt(i))
-                sum++;
+                count++;
         }
-        int[] arr = new int[sum];
+        int[] arr = new int[count];
         int k = 0;
         for(int j = 0 ; j < string.length(); j++){
             if(string.charAt(j) == chr){
