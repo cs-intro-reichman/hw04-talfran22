@@ -45,6 +45,7 @@ public class ArrayOps {
     }
 
     public static boolean containsTheSameElements(int [] array1,int [] array2) {
+        // #feedback: you validated only one direction, when array1 is subset of array2, but not when array2 is subset of array1
         for(int i = 0; i < array1.length ; i++){
             // #feedback: it's not common to compare boolean variables - just use it value as needed
             if(!isInArray(array2, array1[i]))
